@@ -12,9 +12,7 @@ router.get('/', ensureGuest, (req, res) => {
 router.get('/dashboard', ensureAuth, (req, res) => {
     var stories 
     Story.find({user: req.user.id}).lean()
-         .then(result=> {
-            stories=result
-            res.render('dashboard', { name: req.user.firstName, stories})})
+         .then(stories=> res.render('dashboard', { name: req.user.firstName, stories:stories}))
          .catch(_err => res.render('error/500'))
 });
 
